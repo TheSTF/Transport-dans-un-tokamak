@@ -2,7 +2,7 @@ CC     = gcc
 CFLAGS = -std=c11 -Wall -Wextra -Werror -O2 -g -Iinclude
 ASAN_FLAGS = -fsanitize=address,undefined -g
 LDLIBS = -lm
-SRC    = $(wildcard src/*.c)
+SRC    = $(wildcard include/src/*.c)
 
 OBJ = $(SRC:.c=.o)
 

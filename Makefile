@@ -2,7 +2,7 @@ CC     = gcc
 CFLAGS = -std=c11 -Wall -Wextra -Werror -O2 -g -Iinclude
 ASAN_FLAGS = -fsanitize=address,undefined -g
 LDLIBS = -lm
-SRC    = $(wildcard include/src/*.c)
+SRC = $(wildcard include/src/*.c)
 
 OBJ = $(SRC:.c=.o)
 
@@ -14,7 +14,7 @@ tokamak_cli: apps/tokamak_cli.c $(OBJ)
 	$(CC) $(CFLAGS) $^ -o $@
 
 %.o: %.c
-	$(CC) $(CFLAGS) $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 test: 
 	$(CC) $(CFLAGS) tests/test_main.c (OBJ) -o test_runner && ./test_runner

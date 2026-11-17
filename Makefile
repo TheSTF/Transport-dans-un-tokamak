@@ -1,8 +1,8 @@
 CC     = gcc
-CFLAGS = -std=c11 -Wall -Wextra -Werror -O2 -g -Iinclude
+CFLAGS = -std=c11 -Wall -Wextra -Werror -O2 -g -Iinclude/src
 ASAN_FLAGS = -fsanitize=address,undefined -g
 LDLIBS = -lm
-SRC = $(wildcard include/src/*.c)
+SRC = include/src/params.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -25,6 +25,6 @@ asan: clean all
 figures:
 		python3 scripts/plot_results.py
 
-clean: 
-		rm -f src/*.o tokamak_cli test_runner
+clean:
+	rm -f $(OBJ) tokamak_cli test_runner
 

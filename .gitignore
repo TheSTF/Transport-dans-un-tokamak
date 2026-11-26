@@ -1,0 +1,11 @@
+*.o
+tokamak_cli
+test_s1
+test_s1_asan
+test_s2
+test_s2_asan
+*.csv
+*.png
+*.vtk
+.venv/
+.vscode/

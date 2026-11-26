@@ -17,7 +17,7 @@ tokamak_cli: apps/tokamak_cli.c $(OBJ)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 test: 
-	$(CC) $(CFLAGS) tests/test_main.c (OBJ) -o test_runner && ./test_runner
+	$(CC) $(CFLAGS) tests/test_main.c $(OBJ) -o test_runner && ./test_runner
 
 asan: CFLAGS += $(ASAN_FLAGS)
 asan: clean all 

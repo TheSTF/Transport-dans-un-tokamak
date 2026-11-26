@@ -25,7 +25,7 @@ Params params_machine(void) {
 
     p.n = 5.0e19;//[m^-3]
 
-    p.P_nbi = 10e6 ;//[W]
+    p.P_nbi_nom = 10e6 ;//[W]
 
     p.sigma_nbi = p.a/3.0 ;//[m]
 

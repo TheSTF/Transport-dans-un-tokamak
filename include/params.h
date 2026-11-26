@@ -14,7 +14,7 @@ typedef struct t_params{
     double Zeff; /* charge effective [-] : 1 pour un plasma pur*/
     double chi; /*Diffusivité thermique (m^2/s)*/
     double T_edge; /*temperature au bord [keV] */
-    double P_nbi; /*puissance NBI [W]*/
+    double P_nbi_nom; /*puissance NBI [W]*/
     double sigma_nbi; /*largeur du depot NBI [m]*/
 
 

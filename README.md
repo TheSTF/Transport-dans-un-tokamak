@@ -50,3 +50,76 @@ $$3n\frac{\partial T}{\partial t} = \frac{1}{R}\frac{\partial}{\partial R}\!\lef
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r scripts/requirements.txt
+```
+
+### Commandes principales
+
+| Commande | Action |
+| :--- | :--- |
+| `make` | Compile la bibliothèque et l'exécutable `tokamak_cli` (`-std=c11 -Wall -Wextra -Werror -O2`) |
+| `make test` | Compile et exécute la suite de tests unitaires et de vérification |
+| `make asan` | Exécute les tests sous `AddressSanitizer` + `UndefinedBehaviorSanitizer` |
+| `make figures` | Lance la simulation et génère les figures Python |
+| `make clean` | Supprime les objets et binaires compilés |
+
+---
+
+## Architecture du dépôt
+
+Le cœur numérique est conçu comme une bibliothèque C sans dépendance graphique, utilisable en ligne de commande (`tokamak_cli`) puis par un visualiseur SDL2 (après v1.0).
+
+```text
+.
+├── include/            # En-têtes publics (constants, params, diagnostics, grid, io, ...)
+├── src/                # Implémentation de la bibliothèque de calcul
+├── apps/               # Exécutable CLI (tokamak_cli.c)
+├── tests/              # Tests unitaires et solutions manufacturées (test_s1.c, ...)
+├── scripts/            # Post-traitement Python et requirements.txt
+├── configs/            # Fichiers de configuration (machine.cfg, iter.cfg — S4)
+├── docs/               # Cahier des charges et documentation scientifique
+├── .github/workflows/  # Intégration continue (build, tests, ASan)
+└── Makefile
+```
+
+---
+
+## Avancement et critères d'acceptation
+
+Le développement suit un plan incrémental avec critères quantitatifs (détails dans le cahier des charges v2.1) :
+
+| Critère | Vérification | Seuil | Statut |
+| :---: | :--- | :---: | :---: |
+| **S1** | Diagnostics 0D ($\tau_E$ ITER $= 3{,}68\text{ s}$), grille, masque ($V \to 5{,}37\text{ m}^3$), export CSV | $\pm 1\,\%$ / $\pm 2\,\%$ | **Validé** |
+| **CA1** | Ordre de convergence spatial (solution manufacturée sur $33$, $65$, $129$ points) | $2{,}0 \pm 0{,}2$ | En cours (S2) |
+| **CA2** | Résidu du bilan d'énergie $|dW/dt - (P_{\text{chauff}} - P_{\text{pertes}})| / P_{\text{chauff}}$ | $< 1\,\%$ | Planifié (S3) |
+| **CA3** | Profil stationnaire vs solution analytique cylindrique ($R_0 = 100\text{ m}$) | écart max $< 2\,\%$ | Planifié (S3) |
+| **CA4** | Calibration de $\chi$ sur IPB98 ($H_{98} = 1{,}00 \pm 0{,}10$) et mesure de $T_0$ | valeur + incertitude | Planifié (S3) |
+| **CA5** | Affichage des 5 diagnostics 0D ($f_{GW}$, $\beta_N$, $q_{95}$, $nT\tau_E$, $P_{LH}$) avec statut OK/KO | 5 valeurs | Planifié (S3) |
+| **CA6** | `-Wall -Wextra -Werror`, ASan/UBSan + Valgrind propres, $\ge 8$ tests, hash Git dans les sorties | $0$ erreur | En cours (S1 à S4) |
+| **CA7** | Équilibre magnétique Grad-Shafranov (SOR) vs Solov'ev ($65 \times 65$) | erreur $< 1\,\%$, ordre 2 | Niveau B (2027) |
+
+---
+
+## Figures clés
+
+- [x] **S1 — Contrôle géométrique** : masque elliptique du plasma sur grille $(R, Z)$ (`scripts/plot_mask.py`).
+- [ ] **Fig. 1** — Carte de température $T(R, Z)$ avec contour du plasma.
+- [ ] **Fig. 2** — Erreur en fonction du pas de maille (log-log) avec droite de pente 2 (CA1).
+- [ ] **Fig. 3** — Profil radial simulé superposé à la solution analytique cylindrique (CA3).
+- [ ] **Fig. 4** — Évolution de $W(t)$ et résidu du bilan d'énergie (CA2).
+- [ ] **Fig. 5** — Température centrale $T_0(P)$ comparée au seuil $150\text{ MK}$ et aux limites opérationnelles.
+- [ ] **Fig. 6** — Réponse du régulateur PI à un échelon de consigne avec saturation et anti-windup.
+
+---
+
+## Références principales
+
+* J. Wesson, *Tokamaks*, 4e éd., Oxford University Press, 2011.
+* ITER Physics Expert Groups, *ITER Physics Basis*, Nucl. Fusion 39 (1999) 2137 — loi d'échelle IPB98(y,2).
+* M. Greenwald, *Density limits in toroidal plasmas*, Plasma Phys. Control. Fusion 44 (2002) R27.
+* F. Troyon et al., *MHD-limits to plasma confinement*, Plasma Phys. Control. Fusion 26 (1984) 209.
+* Y. R. Martin et al., *Power requirement for accessing the H-mode in ITER*, J. Phys. Conf. Ser. 123 (2008) 012033.
+
+---
+
+**Auteur** : Bassirima Sanogo — Élève-ingénieur IESE3, Polytech Grenoble.

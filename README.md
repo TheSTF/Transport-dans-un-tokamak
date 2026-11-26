@@ -6,7 +6,7 @@
 
 Solveur **C11** de transport thermique 2D axisymétrique en coupe poloïdale $(R, Z)$ pour un plasma de tokamak, accompagné d'une suite de vérification numérique et d'un post-traitement Python.
 
-> **Question scientifique.** Ce projet ne cherche pas à « démontrer la fusion » : il construit un solveur de diffusion thermique vérifié, le calibre sur la loi d'échelle empirique **IPB98(y,2)** utilisée pour dimensionner ITER, et répond à une question quantitative : *quelle température centrale une machine compacte ($R_0 = 1{,}0\text{ m}$, $B_0 = 5{,}0\text{ T}$, $I_p = 1{,}0\text{ MA}$) peut-elle atteindre, et pourquoi n'atteint-elle pas 150 millions de degrés ?*
+> **Question scientifique.** Ce projet ne cherche pas à « démontrer la fusion » : il construit un solveur de diffusion thermique vérifié, le calibre sur la loi d'échelle empirique **IPB98(y,2)** utilisée pour dimensionner ITER, et répond à une question quantitative : *quelle température centrale une machine compacte ( R_0 = 1.0 m, B_0 = 5.0 T, I_p = 1.0 MA ) peut-elle atteindre, et pourquoi n'atteint-elle pas 150 millions de degrés ?*
 
 ---
 

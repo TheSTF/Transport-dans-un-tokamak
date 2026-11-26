@@ -1,0 +1,1 @@
+printf "numpy\nmatplotlib\n" > requirements.txt

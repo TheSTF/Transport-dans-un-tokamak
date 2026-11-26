@@ -91,6 +91,6 @@ void params_print(const Params *p)
     printf("Zeff      = %g\n",        p->Zeff);
     printf("chi       = %g m^2/s\n",  p->chi);
     printf("T_edge    = %g keV\n",    p->T_edge);
-    printf("P_nbi     = %g W\n",      p->P_nbi);
+    printf("P_nbi     = %g W\n",      p->P_nbi_nom);
     printf("sigma_nbi = %g m\n",      p->sigma_nbi);
 }
